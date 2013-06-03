@@ -30,6 +30,10 @@
   {{#unless selected_name}}
   <div class="none">Click a player to select</div>
   {{/unless}}
+  <form id="addplayer">
+    <input type="text" id="new-player" placeholder="New player" />
+    <button type="submit">Add player</button>
+  </form>
 </template>
 
 <template name="player">

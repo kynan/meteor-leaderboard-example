@@ -37,9 +37,11 @@ if (Meteor.isClient) {
     },
     'click input.reset': function () {
       Players.find().forEach(function(player) {
-        console.log(player);
         Players.update(player._id, {$set: {score: Math.floor(Random.fraction()*10)*5}});
       });
+    },
+    'submit form#addplayer': function(evt, template) {
+      Players.insert({name: template.find("input#new-player").value, score: Math.floor(Random.fraction()*10)*5});
     }
   });
 
