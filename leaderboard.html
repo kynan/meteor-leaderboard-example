@@ -9,7 +9,10 @@
 </body>
 
 <template name="leaderboard">
-  <input type="button" class="sort" value="Change sort order" />
+  <div>
+    <input type="button" class="sort" value="Change sort order" />
+    <input type="button" class="reset" value="Reset scores" />
+  </div>
   <div class="leaderboard">
     {{#each players}}
       {{> player}}
