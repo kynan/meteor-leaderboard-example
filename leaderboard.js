@@ -23,6 +23,9 @@ if (Meteor.isClient) {
     'click input.inc': function () {
       Players.update(Session.get("selected_player"), {$inc: {score: 5}});
     },
+    'click input.remove': function () {
+      Players.remove(Session.get("selected_player"));
+    },
     'click input.sort': function () {
       if (Session.equals("sort_order", "name")) {
         Session.set("sort", {score: -1});
