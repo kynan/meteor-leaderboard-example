@@ -4,8 +4,10 @@
 Players = new Meteor.Collection("players");
 
 if (Meteor.isClient) {
+  Session.set("sort_order", "score");
+  Session.set("sort", {score: -1});
   Template.leaderboard.players = function () {
-    return Players.find({}, {sort: {score: -1, name: 1}});
+    return Players.find({}, {sort: Session.get("sort")});
   };
 
   Template.leaderboard.selected_name = function () {
@@ -20,6 +22,15 @@ if (Meteor.isClient) {
   Template.leaderboard.events({
     'click input.inc': function () {
       Players.update(Session.get("selected_player"), {$inc: {score: 5}});
+    },
+    'click input.sort': function () {
+      if (Session.equals("sort_order", "name")) {
+        Session.set("sort", {score: -1});
+        Session.set("sort_order", "score");
+      } else {
+        Session.set("sort", {name: 1});
+        Session.set("sort_order", "name");
+      }
     }
   });
 
