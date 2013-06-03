@@ -3,6 +3,10 @@
 
 Players = new Meteor.Collection("players");
 
+function randomScore() {
+  return Math.floor(Random.fraction()*10)*5;
+}
+
 if (Meteor.isClient) {
   Session.set("sort_order", "score");
   Session.set("sort", {score: -1});
@@ -37,11 +41,11 @@ if (Meteor.isClient) {
     },
     'click input.reset': function () {
       Players.find().forEach(function(player) {
-        Players.update(player._id, {$set: {score: Math.floor(Random.fraction()*10)*5}});
+        Players.update(player._id, {$set: {score: randomScore()}});
       });
     },
     'submit form#addplayer': function(evt, template) {
-      Players.insert({name: template.find("input#new-player").value, score: Math.floor(Random.fraction()*10)*5});
+      Players.insert({name: template.find("input#new-player").value, score: randomScore()});
     }
   });
 
@@ -63,7 +67,7 @@ if (Meteor.isServer) {
                    "Nikola Tesla",
                    "Claude Shannon"];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
+        Players.insert({name: names[i], score: randomScore()});
     }
   });
 }
